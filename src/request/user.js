@@ -2,13 +2,14 @@ import $axios from "@/common/http"//导入封装好的axios
 
 
 // 获取菜单列表
-export async function getUser(size=10,page=1){
+export async function getUser(page=1,size=10){
     let res = await $axios.get("/userlist",{
         params:{
          size,
          page
         }
     })
+
     if(res.code==200 && res.list){
          return res.list
     }else{
