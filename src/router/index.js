@@ -68,15 +68,15 @@ Vue.use(Router)
        {
          path:'/specs',
          component:()=>import('@/views/Shop/Specs'),
-         meta:{title:"商品属性"}
+          meta:{title:"商品属性"}
        }
       ]
     },
   ]
 })
-// 判断是否登录
+// 判断是否登录  路由前置守卫
 router.beforeEach((to,from,next)=>{
   document.title = to.meta.title
-  next();
+   next();
 })
 export default router;

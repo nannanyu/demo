@@ -8,7 +8,7 @@
     <!-- 表单 -->
     <el-form :model="forminfo" ref="form" :rules="rules" label-width="140px">
       <el-form-item label="管理员角色" prop="roleid">
-        <el-select v-model="forminfo.roleid" placeholder="请选择">
+        <el-select v-model="forminfo.roleid" placeholder="请选择角色">
           <el-option
             v-for="item in rolelist"
             :key="item.id"
@@ -22,7 +22,7 @@
       </el-form-item>
 
       <el-form-item label="管理员密码" prop="password">
-        <el-input v-model="forminfo.password" placeholder="请输入管理员密码"></el-input>
+        <el-input v-model="forminfo.password" :placeholder="info.isAdd?'请输入密码':'留空表示不修改'"></el-input>
       </el-form-item>
 
       <el-form-item label="管理员状态">
@@ -37,7 +37,7 @@
 </template>
 <script>
 // 导入  添加和修改的 请求封装方法！
-import { addRole, editRole } from "@/request/role";
+import { addUser, editUser } from "@/request/user";
 import { mapGetters, mapActions } from "vuex";
 let defaultItem = {
   roleid: "",
@@ -83,42 +83,33 @@ export default {
     ...mapActions({
       
       get_role_list: "role/get_role_list",
+       get_user_list: "user/get_user_list",
     }),
     setinfo(val) {
-      // 将数据赋给默认defaultItem; 赋给表单
-      // 将权限节点，回显到树中去！
-      let idarr = val.menus.split(",");
-      if (idarr[0]) {
-        this.checkStrictly = true; // 父子互不关联！
-        // 等到节点渲染完成再做某个事情！ this.$nextTick(()=>{  等到vue把节点渲染完成再做某些事情！ })
-        this.$nextTick(() => {
-          this.$refs.tree.setCheckedKeys(idarr);
-          this.checkStrictly = false; // 又要父子互相关联！
-        });
-      }
-      defaultItem = { ...val };
-      this.forminfo = { ...val };
+           val.password = ""
+            defaultItem = {...val};
+            this.forminfo = {...val};
     },
     async sumbit() {
        if(this.isAdd && !this.forminfo.password){
-           this.message.warning("请输入密码")
+           this.$message.warning("请输入密码")
            return;
        }
       // 表单验证！
-      this.$refs.form.validate(async (valid) => {
+      this.$refs.form.validate(async valid => {
         if (valid) {
           // 如果验证通过！
           let res;
           if (this.info.isAdd) {
             // 添加还是修改！
-            res = await addRole(this.forminfo);
+            res = await addUser(this.forminfo);
           } else {
-            res = await editRole(this.forminfo);
+            res = await editUser(this.forminfo);
           }
           if (res.code == 200) {
             this.$message.success(res.msg);
             this.info.isShow = false;
-            this.get_role_list(); // 重新获取角色列表！
+            this.get_user_list(); // 重新获取角色列表！
             this.cancel();
           } else {
             this.$message.error(res.msg);
@@ -130,14 +121,14 @@ export default {
       if (this.info.isAdd) {
         // 添加时候的重置！
         this.forminfo = { ...resetItem };
-        this.$refs.tree.setCheckedKeys([]);
+     
       } else {
         // 修改时候的重置！
         this.setinfo({ ...defaultItem });
       }
     },
     cancel() {
-      this.$refs.tree.setCheckedKeys([]);
+    
       this.forminfo = { ...resetItem };
     },
   },

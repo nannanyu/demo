@@ -29,6 +29,6 @@ export function editUser(data){
 }
 
 // 删除角色
-export function delUser(id){
-    return $axios.post('/userdelete',{id})
+export function delUser(uid){
+    return $axios.post('/userdelete',{uid})
 }
