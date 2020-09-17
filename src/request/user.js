@@ -6,7 +6,7 @@ export async function getUser(page=1,size=10){
     let res = await $axios.get("/userlist",{
         params:{
          size,
-         page
+         page,
         }
     })
 
@@ -32,4 +32,10 @@ export function editUser(data){
 // 删除角色
 export function delUser(uid){
     return $axios.post('/userdelete',{uid})
+}
+
+// 获取数据总数
+export async function getTotal(){
+    let res = await $axios.get('/usercount')
+    return res.list[0].total;
 }
