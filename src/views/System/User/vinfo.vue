@@ -66,7 +66,6 @@ export default {
         roleid: [{ required: true, message: "必填！", trigger: "blur" }],
         username: [{ required: true, message: "必填！", trigger: "blur" }],
       },
-     
     };
   },
   computed: {

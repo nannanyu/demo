@@ -2,7 +2,7 @@ import $axios from "@/common/http"//导入封装好的axios
 
 
 // 获取菜单列表
-export async function getUser(page=1,size=10){
+export async function getUser(page=6,size=3){
     let res = await $axios.get("/userlist",{
         params:{
          size,
@@ -38,4 +38,8 @@ export function delUser(uid){
 export async function getTotal(){
     let res = await $axios.get('/usercount')
     return res.list[0].total;
+}
+// 管理员登陆
+export function Login(data){
+    return $axios.post('/userlogin',data)
 }

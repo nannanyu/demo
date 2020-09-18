@@ -16,8 +16,14 @@ Vue.use(Router)
       path: '/',
       component:()=>import("@/views/Layout"),
       meta:{title:"xx管理系统"},
-      redirect:"/index",
+      redirect:"/welcome",
       children:[
+        {
+          path:'/welcome',
+          component:()=>import("@/views/Welcome"),
+          meta:{title:"欢迎页"}
+  
+         },
        {
         path:'/index',
         component:()=>import("@/views/Index"),
