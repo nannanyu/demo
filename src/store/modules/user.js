@@ -10,7 +10,7 @@ export default {
     state: {
         userlist:[],  // 角色列表
         page:1, // 页码数
-        size:1, // 每页数量
+        size:5, // 每页数量
         total:0,  //总条数
         userinfo: userinfo
     },

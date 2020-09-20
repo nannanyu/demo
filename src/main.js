@@ -9,6 +9,12 @@ import ElementUl from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';//样式
 Vue.use(ElementUl);
 
+
+// 注册过滤器
+import filterObj from "./filters"
+for(let k in filterObj){
+  Vue.filter(k,filterObj[k])
+}
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

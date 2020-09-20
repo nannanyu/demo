@@ -1,6 +1,6 @@
 <template>
  <div class="we">
-     <img src="../assets/img/hy.jpg" alt="">
+     <img src="../assets/img/hy.jpg" >
  </div>
 </template>
 
